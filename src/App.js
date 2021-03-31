@@ -18,7 +18,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const pusher = new Pusher("01e0246f53ac7a219a99", {
+        const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
             cluster: "eu",
         });
 

@@ -1,7 +1,16 @@
+:root {
+    --newCommunityTheme-bodyText: #d7dadc;
+    --newCommunityTheme-button: #d7dad7;
+    --newCommunityTheme-line: #343536;
+    --newCommunityTheme-field: #272729;
+}
+
 $background: #030303;
 
 * {
     margin: 0;
+    color: #fff;
+    box-sizing: border-box;
 }
 body {
     background: $background;
