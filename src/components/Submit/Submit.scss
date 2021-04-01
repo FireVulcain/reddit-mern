@@ -50,7 +50,7 @@
         border-style: solid;
         border-width: 0 1px 1px 0;
         border-radius: 0;
-        color: #818384;
+        color: var(--newCommunityTheme-actionIcon);
         background: transparent;
 
         &.active {
@@ -75,12 +75,12 @@
             width: 16px;
             height: 16px;
             margin-right: 8px;
-            fill: #818384;
+            fill: var(--newCommunityTheme-actionIcon);
         }
     }
 }
 .submit-wrapper {
-    background-color: #1a1a1b;
+    background-color: var(--newCommunityTheme-body);
     border-radius: 4px;
 
     & .submit-form-container {
@@ -94,7 +94,7 @@
         border-radius: 4px;
     }
     & input::placeholder {
-        color: #818384;
+        color: var(--newCommunityTheme-actionIcon);
     }
 
     & input[type="text"] {
@@ -115,7 +115,7 @@
             right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: #818384;
+            color: var(--newCommunityTheme-actionIcon);
             font-size: 12px;
             font-weight: 700;
         }
@@ -124,7 +124,7 @@
     & .submit-form-button {
         margin-top: 16px;
         border: none;
-        color: #1a1a1b;
+        color: var(--newCommunityTheme-body);
     }
 }
 

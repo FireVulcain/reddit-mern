@@ -8,7 +8,7 @@
     align-items: flex-start;
     margin-bottom: 10px;
     background: rgba(26, 26, 27, 0.8) none repeat scroll 0% 0%;
-    border: thin solid #818384;
+    border: thin solid var(--newCommunityTheme-actionIcon);
     border-radius: 4px;
 }
 
@@ -92,7 +92,7 @@
 
         .feed-post-content-header-author *,
         .feed-post-content-header-date * {
-            color: #818384;
+            color: var(--newCommunityTheme-actionIcon);
             font-size: 12px;
             text-decoration: none;
         }
@@ -235,12 +235,12 @@
             font-size: 12px;
             font-weight: 700;
             line-height: 16px;
-            color: #818384;
+            color: var(--newCommunityTheme-actionIcon);
         }
 
         svg {
             margin-right: 5px;
-            fill: #818384;
+            fill: var(--newCommunityTheme-actionIcon);
             vertical-align: middle;
         }
     }

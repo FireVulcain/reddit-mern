@@ -1,0 +1,53 @@
+.feed-submit-shortcut {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 8px;
+    background-color: var(--newCommunityTheme-body);
+    border-radius: 4px;
+    border: 1px solid #343536;
+
+    .feed-submit-shortcut-pfp {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        border: 1px solid var(--newCommunityTheme-line);
+        border-radius: 100%;
+        & img {
+            border-radius: 100%;
+            width: 100%;
+        }
+    }
+    .feed-submit-shortcut-type-post {
+        background-color: var(--newCommunityTheme-field);
+        border-radius: 4px;
+        border: 1px solid var(--newCommunityTheme-line);
+        box-shadow: none;
+        box-sizing: border-box;
+        color: var(--newCommunityTheme-bodyText);
+        display: block;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        height: 38px;
+        margin-right: 8px;
+        outline: none;
+        padding: 0 16px;
+    }
+    .feed-submit-shortcut-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        min-height: 40px;
+        border-radius: 4px;
+        &:hover {
+            background: rgba(215, 218, 220, 0.08);
+        }
+        & svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--newCommunityTheme-actionIcon);
+        }
+    }
+}

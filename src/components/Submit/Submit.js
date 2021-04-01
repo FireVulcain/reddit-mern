@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { storage } from "./../../firebase";
+import { useParams } from "react-router-dom";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -12,7 +13,9 @@ import { MediaType } from "./MediaType";
 import "./Submit.scss";
 
 export const Submit = () => {
-    const [selected, setSelected] = useState("post");
+    const { type } = useParams();
+
+    const [selected, setSelected] = useState(type ?? "post");
     const [isLoading, setIsLoading] = useState(false);
 
     const [title, setTitle] = useState("");

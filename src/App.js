@@ -41,7 +41,7 @@ function App() {
                     <Route exact path="/">
                         <Feed posts={posts} />
                     </Route>
-                    <Route exact path="/submit">
+                    <Route exact path={["/submit", "/submit/:type"]}>
                         <Submit />
                     </Route>
                 </Switch>
