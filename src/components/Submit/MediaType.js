@@ -6,7 +6,7 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
 
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/scss/main.scss";
 
 export const MediaType = ({ isLoading, files, setFiles }) => {
     const [dropClass, setDropClass] = useState("");

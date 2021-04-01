@@ -32,6 +32,10 @@ export const Submit = () => {
         );
         return !!pattern.test(str);
     };
+    const formatURL = (url) => {
+        url = !url.match(/^[a-zA-Z]+:\/\//) ? `https://${url}` : url;
+        return url;
+    };
 
     const handleUpload = (e) => {
         e.preventDefault();
@@ -40,7 +44,7 @@ export const Submit = () => {
 
         let data = {
             title,
-            content: selected === "post" ? text : selected === "link" ? url : "",
+            content: selected === "post" ? text : selected === "link" ? formatURL(url) : "",
             type: selected,
             subName: "subname",
             userName: "user",
@@ -62,7 +66,7 @@ export const Submit = () => {
                         return snap.ref.getDownloadURL();
                     })
                     .then((downloadURL) => {
-                        url.push(downloadURL);
+                        url.push({ url: downloadURL, type: file.type });
                     });
                 return promises.push(uploadTask);
             });
