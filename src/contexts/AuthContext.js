@@ -14,10 +14,15 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            axios.get("/user/userId", { params: { userId: user.uid } }).then((res) => {
-                setCurrentUser(...res.data);
+            if (user) {
+                axios.get("/user/userId", { params: { userId: user.uid } }).then((res) => {
+                    setCurrentUser(...res.data);
+                    setLoading(false);
+                });
+            } else {
+                setCurrentUser(user);
                 setLoading(false);
-            });
+            }
         });
 
         return () => {

@@ -82,7 +82,8 @@ export const Signup = () => {
                 userId: user.user.uid,
                 userEmail: email,
                 userName: userName,
-                userAvatar: "",
+                userAvatar:
+                    "https://firebasestorage.googleapis.com/v0/b/react-mern-cc724.appspot.com/o/files%2Favatar_default.png?alt=media&token=92d1e7af-d1b1-4f89-a883-5b01828a041d",
                 userBanner: "",
                 karma: 0,
             };
