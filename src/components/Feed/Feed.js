@@ -16,7 +16,7 @@ export const Feed = ({ posts }) => {
     const history = useHistory();
 
     return (
-        <div className="feed-container">
+        <div className="feed-container spacing-top-header">
             <div className="feed-submit-shortcut">
                 <Link to={`/u/username`} className="feed-submit-shortcut-pfp">
                     <img src={communityIcon} alt="username profile" />

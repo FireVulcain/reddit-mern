@@ -7,6 +7,11 @@ import axios from "./axios";
 import { Nav } from "./components/Nav/Nav";
 import { Feed } from "./components/Feed/Feed";
 import { Submit } from "./components/Submit/Submit";
+import { Signup } from "./components/Auth/Signup";
+import { Login } from "./components/Auth/Login";
+import { AuthProvider } from "./contexts/AuthContext";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { ForgotPassword } from "./components/Auth/ForgotPassword";
 
 function App() {
     const [posts, setPosts] = useState([]);
@@ -35,17 +40,28 @@ function App() {
 
     return (
         <Router>
-            <div className="app">
-                <Nav />
-                <Switch>
-                    <Route exact path="/">
-                        <Feed posts={posts} />
-                    </Route>
-                    <Route exact path={["/submit", "/submit/:type"]}>
-                        <Submit />
-                    </Route>
-                </Switch>
-            </div>
+            <AuthProvider>
+                <div className="app">
+                    <Nav />
+                    <Switch>
+                        <Route exact path="/">
+                            <Feed posts={posts} />
+                        </Route>
+                        <Route exact path="/login">
+                            <Login />
+                        </Route>
+                        <Route exact path="/signup">
+                            <Signup />
+                        </Route>
+                        <Route exact path="/forgot-password">
+                            <ForgotPassword />
+                        </Route>
+                        <PrivateRoute exact path={["/submit", "/submit/:type"]}>
+                            <Submit />
+                        </PrivateRoute>
+                    </Switch>
+                </div>
+            </AuthProvider>
         </Router>
     );
 }

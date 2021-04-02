@@ -103,7 +103,7 @@ export const Submit = () => {
     };
 
     return (
-        <div className="submit-container">
+        <div className="submit-container spacing-top-header">
             <h2>Create a post</h2>
 
             <div className="submit-wrapper">
