@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { auth } from "../firebase";
 
+import axios from "./../axios";
+
 const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -12,8 +14,10 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            setCurrentUser(user);
-            setLoading(false);
+            axios.get("/user/userId", { params: { userId: user.uid } }).then((res) => {
+                setCurrentUser(...res.data);
+                setLoading(false);
+            });
         });
 
         return () => {

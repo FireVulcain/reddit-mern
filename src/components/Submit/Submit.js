@@ -10,6 +10,7 @@ import Loader from "react-loader-spinner";
 import axios from "./../../axios";
 import { TypeSubmit } from "./TypeSubmit";
 import { MediaType } from "./MediaType";
+import { useAuth } from "./../../contexts/AuthContext";
 import "./Submit.scss";
 
 export const Submit = () => {
@@ -22,6 +23,8 @@ export const Submit = () => {
     const [text, setText] = useState("");
     const [files, setFiles] = useState([]);
     const [url, setUrl] = useState("");
+
+    const { currentUser } = useAuth();
 
     const validURL = (str) => {
         var pattern = new RegExp(
@@ -50,7 +53,8 @@ export const Submit = () => {
             content: selected === "post" ? text : selected === "link" ? formatURL(url) : "",
             type: selected,
             subName: "subname",
-            userName: "user",
+            userName: currentUser.userName,
+            userId: currentUser.userId,
             nbComments: 0,
             upvotes: 1,
             downvotes: 0,
