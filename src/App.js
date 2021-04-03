@@ -4,7 +4,7 @@ import "./App.scss";
 import Pusher from "pusher-js";
 import axios from "./axios";
 
-import { Nav } from "./components/Nav/Nav";
+import { Navbar } from "./components/Nav/Navbar";
 import { Feed } from "./components/Feed/Feed";
 import { Submit } from "./components/Submit/Submit";
 import { Signup } from "./components/Auth/Signup";
@@ -42,7 +42,7 @@ function App() {
         <Router>
             <AuthProvider>
                 <div className="app">
-                    <Nav />
+                    <Navbar />
                     <Switch>
                         <Route exact path="/">
                             <Feed posts={posts} />

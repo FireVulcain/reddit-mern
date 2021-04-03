@@ -55,7 +55,7 @@ export const ForgotPassword = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <div className="spacing-top-header">
+        <div className="auth spacing-top-header">
             {!currentUser && (
                 <div className="auth-container">
                     <div className="auth-form-container auth-sign-in-container">
