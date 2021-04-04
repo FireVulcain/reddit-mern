@@ -331,6 +331,9 @@ a.ck.ck-button.ck-on {
         > p {
             color: var(--newCommunityTheme-metaText);
             font-size: 14px;
+            &:not(:first-of-type) {
+                margin-top: 20px;
+            }
         }
         div {
             display: flex;

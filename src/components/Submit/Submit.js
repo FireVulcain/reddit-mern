@@ -20,7 +20,8 @@ export const Submit = () => {
     const [selected, setSelected] = useState(type ?? "post");
     const [isLoading, setIsLoading] = useState(false);
 
-    const [communities, setCommunities] = useState([]);
+    const [followedCommunities, setFollowedCommunities] = useState([]);
+    const [notFollowedCommunities, setNotFollowedCommunities] = useState([]);
     const [selectedCommunity, setSelectedCommunity] = useState({});
 
     const [title, setTitle] = useState("");
@@ -49,9 +50,22 @@ export const Submit = () => {
 
     useEffect(() => {
         axios.get("/communities/following", { params: { userId: currentUser.userId } }).then((res) => {
-            return setCommunities(res.data);
+            return setFollowedCommunities(res.data);
         });
     }, [currentUser]);
+
+    useEffect(() => {
+        if (followedCommunities.length > 0) {
+            axios.get("/communities/all").then((res) => {
+                let notFollowed = res.data.filter(function (allComunity) {
+                    return !followedCommunities.find(function (followedCommunity) {
+                        return allComunity.communityId === followedCommunity.communityId;
+                    });
+                });
+                return setNotFollowedCommunities(notFollowed);
+            });
+        }
+    }, [followedCommunities]);
 
     const handleUpload = (e) => {
         e.preventDefault();
@@ -122,7 +136,12 @@ export const Submit = () => {
         <div className="submit-container spacing-top-header">
             <h2>Create a post</h2>
             <>
-                <SelectCommunity communities={communities} selectedCommunity={selectedCommunity} setSelectedCommunity={setSelectedCommunity} />
+                <SelectCommunity
+                    notFollowedCommunities={notFollowedCommunities}
+                    followedCommunities={followedCommunities}
+                    selectedCommunity={selectedCommunity}
+                    setSelectedCommunity={setSelectedCommunity}
+                />
             </>
             <div className="submit-wrapper">
                 <TypeSubmit selected={selected} setSelected={setSelected} />

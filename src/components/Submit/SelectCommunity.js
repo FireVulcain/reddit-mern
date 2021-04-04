@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import useOutsideClick from "./../Nav/DropDown/useOutsideClick";
 
-export const SelectCommunity = ({ communities, selectedCommunity, setSelectedCommunity }) => {
+export const SelectCommunity = ({ notFollowedCommunities, followedCommunities, selectedCommunity, setSelectedCommunity }) => {
     const [open, setOpen] = useState(false);
     const refOpen = useRef();
 
@@ -33,7 +33,7 @@ export const SelectCommunity = ({ communities, selectedCommunity, setSelectedCom
             {open && (
                 <div className="submit-community-dropdown">
                     <p>My communities</p>
-                    {communities.map((community) => {
+                    {followedCommunities.map((community) => {
                         return (
                             <div
                                 onClick={() => {
@@ -43,7 +43,22 @@ export const SelectCommunity = ({ communities, selectedCommunity, setSelectedCom
                                 key={community._id}
                             >
                                 <img alt={community?.name} src={community?.avatar} />
-                                <p>{community?.name}</p>
+                                <p>r/{community?.name}</p>
+                            </div>
+                        );
+                    })}
+                    <p>Other</p>
+                    {notFollowedCommunities.map((community) => {
+                        return (
+                            <div
+                                onClick={() => {
+                                    setSelectedCommunity(community);
+                                    setOpen(false);
+                                }}
+                                key={community._id}
+                            >
+                                <img alt={community?.name} src={community?.avatar} />
+                                <p>r/{community?.name}</p>
                             </div>
                         );
                     })}
