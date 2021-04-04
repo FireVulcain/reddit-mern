@@ -23,6 +23,7 @@
     "react-slick": "^0.28.1",
     "react-tiny-link": "^3.6.1",
     "react-toastify": "^7.0.3",
+    "react-tooltip": "^4.2.17",
     "slick-carousel": "^1.8.1",
     "timeago-react": "^3.0.2",
     "uuid": "^8.3.2",

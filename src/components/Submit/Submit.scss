@@ -62,7 +62,6 @@
         }
         &.active::after {
             content: " ";
-            box-sizing: border-box;
             background-color: var(--newCommunityTheme-bodyText);
             position: absolute;
             left: 0;
@@ -92,9 +91,6 @@
     & input {
         width: 100%;
         border-radius: 4px;
-    }
-    & input::placeholder {
-        color: var(--newCommunityTheme-actionIcon);
     }
 
     & input[type="text"] {
@@ -165,7 +161,6 @@ a.ck.ck-button.ck-on {
     flex-grow: 1;
     flex-flow: column nowrap;
     min-height: 280px;
-    box-sizing: border-box;
     border-radius: 4px;
     text-align: center;
     border: 1px dashed var(--newCommunityTheme-line);
@@ -240,6 +235,7 @@ a.ck.ck-button.ck-on {
                 right: 0px;
                 width: 30px;
                 height: 30px;
+                fill: #030303;
             }
             &:hover svg.delete-image-button {
                 display: block;
@@ -284,4 +280,68 @@ a.ck.ck-button.ck-on {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.submit-community {
+    position: relative;
+    width: 300px;
+    margin-bottom: 10px;
+
+    .submit-community-selected-community {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        padding: 0 8px;
+        border-radius: 4px;
+        box-shadow: 0 0 0 0 var(--newCommunityTheme-body);
+        border: 1px solid var(--newCommunityTheme-line);
+        background-color: var(--newCommunityTheme-body);
+
+        .submit-community-avatar-placeholder {
+            height: 22px;
+            width: 22px;
+            border-radius: 22px;
+            margin-right: 10px;
+            border: 1px dashed var(--newCommunityTheme-actionIcon);
+        }
+
+        img {
+            width: 22px;
+            margin-right: 10px;
+            border-radius: 99999px;
+        }
+        input,
+        input:focus {
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+    }
+    .submit-community-dropdown {
+        position: absolute;
+        width: 100%;
+        z-index: 999;
+        left: 0;
+        right: 0;
+        top: 39px;
+        border: 1px solid var(--newCommunityTheme-line);
+        background-color: var(--newCommunityTheme-body);
+        padding: 15px 10px;
+
+        > p {
+            color: var(--newCommunityTheme-metaText);
+            font-size: 14px;
+        }
+        div {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            cursor: pointer;
+            img {
+                width: 32px;
+                margin-right: 10px;
+                border-radius: 99999px;
+            }
+        }
+    }
 }

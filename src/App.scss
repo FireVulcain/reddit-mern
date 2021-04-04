@@ -4,7 +4,13 @@
     --newCommunityTheme-line: #343536;
     --newCommunityTheme-field: #272729;
     --newCommunityTheme-actionIcon: #818384;
+    --newCommunityTheme-metaText: #818384;
     --newCommunityTheme-body: #1a1a1b;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--newCommunityTheme-actionIcon);
 }
 
 $background: #030303;

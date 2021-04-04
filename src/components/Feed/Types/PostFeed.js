@@ -10,7 +10,7 @@ export const PostFeed = ({ post }) => {
             <Votes upvotes={post.upvotes} downvotes={post.downvotes} />
 
             <div className="feed-post-content">
-                <Header subName={post.subName} userName={post.userName} createdAt={post.createdAt} title={post.title} />
+                <Header communityName={post.communityName} userName={post.userName} createdAt={post.createdAt} title={post.title} />
 
                 <div className="feed-post-content-text">
                     {parse(post.content, {
@@ -27,7 +27,7 @@ export const PostFeed = ({ post }) => {
                         },
                     })}
                 </div>
-                <Footer subName={post.subName} idPost={post._id} nbComments={post.nbComments} />
+                <Footer communityName={post.communityName} idPost={post._id} nbComments={post.nbComments} />
             </div>
         </div>
     );

@@ -21,7 +21,7 @@ export const Navbar = () => {
                 </Link>
                 {currentUser ? (
                     <>
-                        <CommunitiesDropdown />
+                        <CommunitiesDropdown currentUser={currentUser} />
                         <UserDropdown currentUser={currentUser} />
                     </>
                 ) : (

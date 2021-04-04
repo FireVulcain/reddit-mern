@@ -9,7 +9,7 @@ export const DropdownMenu = ({ children, position = "center" }) => {
     return <div className={`nav-dropdown ${position ? `nav-dropdown-${position}` : ""}`}>{children}</div>;
 };
 
-export const DropdownItem = ({ children, leftIcon, path, customClickEvent, setOpen }) => {
+export const DropdownItem = ({ children, leftIcon, leftImage, path, customClickEvent, setOpen }) => {
     return (
         <Link
             to={path}
@@ -23,7 +23,14 @@ export const DropdownItem = ({ children, leftIcon, path, customClickEvent, setOp
                     : () => setOpen(false)
             }
         >
-            <span className="nav-icon-button">{leftIcon}</span>
+            {leftIcon ? (
+                <span className="nav-icon-button">{leftIcon}</span>
+            ) : leftImage ? (
+                <span className="nav-icon-button">
+                    <img src={leftImage} alt="community icon" />{" "}
+                </span>
+            ) : null}
+
             {children}
         </Link>
     );

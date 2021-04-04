@@ -148,6 +148,11 @@ header {
                     width: 20px;
                     height: 20px;
                 }
+                img {
+                    width: $button-size;
+                    height: $button-size;
+                    border-radius: 50%;
+                }
             }
 
             .nav-dropdown {
@@ -173,7 +178,8 @@ header {
 
                 .nav-dropdown-title {
                     padding-left: 0.5rem;
-                    color: #818384;
+                    color: var(--newCommunityTheme-metaText);
+                    margin-bottom: 5px;
 
                     &:not(:first-of-type) {
                         margin-top: 10px;

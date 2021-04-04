@@ -1,0 +1,78 @@
+.create-community {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    h1 {
+        margin-bottom: 16px;
+        padding: 0 0 16px;
+        font-size: 16px;
+        line-height: 20px;
+        border-bottom: 1px solid var(--newCommunityTheme-line);
+        color: var(--newCommunityTheme-bodyText);
+    }
+
+    form {
+        input,
+        textarea {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 24px 4px 12px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+            font-family: inherit;
+            border: 1px solid var(--newCommunityTheme-line);
+            border-radius: 4px;
+            background-color: var(--newCommunityTheme-body);
+            color: var(--newCommunityTheme-bodyText);
+
+            &:focus {
+                outline: none;
+            }
+            &.create-community-error-input {
+                border: 1px solid red;
+            }
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            position: relative;
+            padding: 8px 16px;
+            margin-top: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            border-radius: 9999px;
+            background-color: var(--newCommunityTheme-button);
+            color: var(--newCommunityTheme-body);
+        }
+
+        div {
+            &:not(:first-of-type) {
+                margin-top: 20px;
+            }
+            label {
+                color: var(--newCommunityTheme-bodyText);
+            }
+            .create-community-description {
+                color: var(--newCommunityTheme-metaText);
+                font-size: 12px;
+                svg,
+                path {
+                    fill: var(--newCommunityTheme-metaText);
+                }
+            }
+            .create-community-error-text {
+                font-size: 12px;
+                color: red;
+                margin-top: -5px;
+                display: block;
+            }
+        }
+    }
+}
+.__react_component_tooltip {
+    max-width: 500px;
+    width: 100%;
+}

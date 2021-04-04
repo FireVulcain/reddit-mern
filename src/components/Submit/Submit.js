@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { storage } from "./../../firebase";
 import { useParams } from "react-router-dom";
 
@@ -12,12 +12,16 @@ import { TypeSubmit } from "./TypeSubmit";
 import { MediaType } from "./MediaType";
 import { useAuth } from "./../../contexts/AuthContext";
 import "./Submit.scss";
+import { SelectCommunity } from "./SelectCommunity";
 
 export const Submit = () => {
     const { type } = useParams();
 
     const [selected, setSelected] = useState(type ?? "post");
     const [isLoading, setIsLoading] = useState(false);
+
+    const [communities, setCommunities] = useState([]);
+    const [selectedCommunity, setSelectedCommunity] = useState({});
 
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
@@ -43,6 +47,12 @@ export const Submit = () => {
         return url;
     };
 
+    useEffect(() => {
+        axios.get("/communities/following", { params: { userId: currentUser.userId } }).then((res) => {
+            return setCommunities(res.data);
+        });
+    }, [currentUser]);
+
     const handleUpload = (e) => {
         e.preventDefault();
 
@@ -52,7 +62,8 @@ export const Submit = () => {
             title,
             content: selected === "post" ? text : selected === "link" ? formatURL(url) : "",
             type: selected,
-            subName: "subname",
+            communityId: selectedCommunity.communityId,
+            communityName: selectedCommunity.name,
             userName: currentUser.userName,
             userId: currentUser.userId,
             nbComments: 0,
@@ -101,6 +112,7 @@ export const Submit = () => {
         if (selected === "post" && title) isDisabled = false;
         if (selected === "media" && files.length > 0 && title) isDisabled = false;
         if (selected === "link" && validURL(url) && title) isDisabled = false;
+        if (selectedCommunity && Object.keys(selectedCommunity).length === 0 && selectedCommunity.constructor === Object) isDisabled = true;
         if (isLoading) isDisabled = true;
 
         return isDisabled;
@@ -109,7 +121,9 @@ export const Submit = () => {
     return (
         <div className="submit-container spacing-top-header">
             <h2>Create a post</h2>
-
+            <>
+                <SelectCommunity communities={communities} selectedCommunity={selectedCommunity} setSelectedCommunity={setSelectedCommunity} />
+            </>
             <div className="submit-wrapper">
                 <TypeSubmit selected={selected} setSelected={setSelected} />
                 <div className="submit-form-container">

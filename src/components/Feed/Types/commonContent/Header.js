@@ -5,14 +5,14 @@ import TimeAgo from "timeago-react";
 /* Assets */
 import communityIcon from "./../../../../assets/images/communityIcon.png";
 
-export const Header = ({ subName, userName, createdAt, title }) => {
+export const Header = ({ communityName, userName, createdAt, title }) => {
     return (
         <>
             <div className="feed-post-content-header">
-                <div className="feed-post-content-header-subname">
-                    <Link to={`/r/${subName}`}>
-                        <img src={communityIcon} alt="sub logo" />
-                        <span>{subName}</span>
+                <div className="feed-post-content-header-communityName">
+                    <Link to={`/r/${communityName}`}>
+                        <img src={communityIcon} alt="community logo" />
+                        <span>{communityName}</span>
                     </Link>
                 </div>
                 <div className="feed-post-content-header-author">

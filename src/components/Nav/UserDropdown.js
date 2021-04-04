@@ -55,7 +55,7 @@ export const UserDropdown = ({ currentUser }) => {
                     <DropdownItem path={"/settings"} leftIcon={<Cog />} setOpen={setOpenUserDropdown}>
                         User Settings
                     </DropdownItem>
-                    <DropdownItem path="/" leftIcon={<CgLogOut />} customClickEvent={handleLogout} setOpen={setOpenUserDropdown}>
+                    <DropdownItem path="#" leftIcon={<CgLogOut />} customClickEvent={handleLogout} setOpen={setOpenUserDropdown}>
                         Log Out
                     </DropdownItem>
                 </DropdownMenu>

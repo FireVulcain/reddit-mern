@@ -12,6 +12,7 @@ import { Login } from "./components/Auth/Login";
 import { AuthProvider } from "./contexts/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { ForgotPassword } from "./components/Auth/ForgotPassword";
+import { CreateCommunity } from "./components/Community/CreateCommunity";
 
 function App() {
     const [posts, setPosts] = useState([]);
@@ -56,6 +57,9 @@ function App() {
                         <Route exact path="/forgot-password">
                             <ForgotPassword />
                         </Route>
+                        <PrivateRoute exact path="/community/create">
+                            <CreateCommunity />
+                        </PrivateRoute>
                         <PrivateRoute exact path={["/submit", "/submit/:type"]}>
                             <Submit />
                         </PrivateRoute>

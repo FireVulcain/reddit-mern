@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useOutsideClick from "./DropDown/useOutsideClick";
+import axios from "./../../axios";
 
 /* Components */
 import { NavItem } from "./DropDown/NavItem";
@@ -10,30 +11,37 @@ import { ReactComponent as Caret } from "./../../assets/icons/caret.svg";
 import { ReactComponent as Cog } from "./../../assets/icons/cog.svg";
 import { CgPen } from "react-icons/cg";
 
-export const CommunitiesDropdown = () => {
+export const CommunitiesDropdown = ({ currentUser }) => {
     const [openCommunitiesDropdown, setOpenCommunitiesDropdown] = useState(false);
+    const [communities, setCommunities] = useState([]);
     const communitiesDropdownRef = useRef();
 
     useOutsideClick(communitiesDropdownRef, () => {
         if (openCommunitiesDropdown) return setOpenCommunitiesDropdown(!openCommunitiesDropdown);
     });
 
-    const simulateCommunites = [];
-    for (let i = 0; i < 10; i++) {
-        simulateCommunites.push(
-            <DropdownItem key={i} path={`/r/subname${i}`} leftIcon={<Cog />} setOpen={setOpenCommunitiesDropdown}>
-                r/subname{i}
-            </DropdownItem>
-        );
-    }
+    useEffect(() => {
+        axios.get("/communities/following", { params: { userId: currentUser.userId } }).then((res) => {
+            return setCommunities(res.data);
+        });
+    }, [currentUser]);
 
     return (
         <div className="navbar-nav" ref={communitiesDropdownRef} onClick={() => setOpenCommunitiesDropdown(!openCommunitiesDropdown)}>
             <NavItem icon={<Caret />} open={openCommunitiesDropdown}>
                 <DropdownMenu position="center">
                     <div className="nav-dropdown-title">My communities</div>
-                    {simulateCommunites.map((communities) => {
-                        return communities;
+                    {communities.map((community) => {
+                        return (
+                            <DropdownItem
+                                key={community.communityId}
+                                path={`/r/${community.name}`}
+                                leftImage={community.avatar}
+                                setOpen={setOpenCommunitiesDropdown}
+                            >
+                                r/{community.name}
+                            </DropdownItem>
+                        );
                     })}
                     <div className="nav-dropdown-title">Other</div>
                     <DropdownItem path={"/settings"} leftIcon={<Cog />} setOpen={setOpenCommunitiesDropdown}>
@@ -42,7 +50,7 @@ export const CommunitiesDropdown = () => {
                     <DropdownItem path="/submit" leftIcon={<CgPen />} setOpen={setOpenCommunitiesDropdown}>
                         Create Post
                     </DropdownItem>
-                    <DropdownItem path="/subreddits/create" leftIcon={<CgPen />} setOpen={setOpenCommunitiesDropdown}>
+                    <DropdownItem path="/community/create" leftIcon={<CgPen />} setOpen={setOpenCommunitiesDropdown}>
                         Create Community
                     </DropdownItem>
                 </DropdownMenu>
