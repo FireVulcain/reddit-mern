@@ -13,7 +13,7 @@ export const SelectCommunity = ({ notFollowedCommunities, followedCommunities, s
         <div className="submit-community" ref={refOpen}>
             <div className={`submit-community-selected-community`}>
                 {selectedCommunity?.avatar ? (
-                    <img src={selectedCommunity?.avatar} alt={selectedCommunity?.name} />
+                    <img src={selectedCommunity?.avatar} alt={selectedCommunity?.communityName} />
                 ) : (
                     <div className="submit-community-avatar-placeholder"></div>
                 )}
@@ -24,7 +24,7 @@ export const SelectCommunity = ({ notFollowedCommunities, followedCommunities, s
                     value={
                         selectedCommunity && Object.keys(selectedCommunity).length === 0 && selectedCommunity.constructor === Object
                             ? ""
-                            : `r/${selectedCommunity.name}`
+                            : `r/${selectedCommunity.communityName}`
                     }
                     onChange={(e) => (!e.target.value ? setSelectedCommunity({}) : null)}
                 />
@@ -32,7 +32,7 @@ export const SelectCommunity = ({ notFollowedCommunities, followedCommunities, s
 
             {open && (
                 <div className="submit-community-dropdown">
-                    <p>My communities</p>
+                    {followedCommunities.length > 0 && <p>My communities</p>}
                     {followedCommunities.map((community) => {
                         return (
                             <div
@@ -42,12 +42,12 @@ export const SelectCommunity = ({ notFollowedCommunities, followedCommunities, s
                                 }}
                                 key={community._id}
                             >
-                                <img alt={community?.name} src={community?.avatar} />
-                                <p>r/{community?.name}</p>
+                                <img alt={community?.communityName} src={community?.avatar} />
+                                <p>r/{community?.communityName}</p>
                             </div>
                         );
                     })}
-                    <p>Other</p>
+                    {notFollowedCommunities.length > 0 && <p>Other</p>}
                     {notFollowedCommunities.map((community) => {
                         return (
                             <div
@@ -57,8 +57,8 @@ export const SelectCommunity = ({ notFollowedCommunities, followedCommunities, s
                                 }}
                                 key={community._id}
                             >
-                                <img alt={community?.name} src={community?.avatar} />
-                                <p>r/{community?.name}</p>
+                                <img alt={community?.communityName} src={community?.avatar} />
+                                <p>r/{community?.communityName}</p>
                             </div>
                         );
                     })}

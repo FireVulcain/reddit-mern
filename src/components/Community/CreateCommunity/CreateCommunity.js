@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import ReactTooltip from "react-tooltip";
-import axios from "./../../axios";
+import axios from "../../../axios";
 import { v4 as uuidv4 } from "uuid";
 
-import { useAuth } from "./../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 
 import { GrCircleInformation } from "react-icons/gr";
 
@@ -28,7 +28,8 @@ export const CreateCommunity = () => {
 
         let data = {
             communityId: uuidv4(),
-            name,
+            communityName: `${name}`,
+            title: name,
             description,
             members: 1,
             avatar:
@@ -40,7 +41,11 @@ export const CreateCommunity = () => {
             if (res.data.length > 0) return setError({ type: "name", message: "This Community Name is already taken" });
             else {
                 return axios.post("/communities/new", data).then(() => {
-                    return axios.post("/follow/new", { communityId: data.communityId, userId: currentUser.userId, name: data.name });
+                    return axios.post("/follow/new", {
+                        communityId: data.communityId,
+                        userId: currentUser.userId,
+                        communityName: data.communityName,
+                    });
                 });
             }
         });
@@ -52,7 +57,7 @@ export const CreateCommunity = () => {
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
                     <label htmlFor="name">Name*</label>
-                    <p className="create-community-community-description">
+                    <p className="create-community-description">
                         Community names including capitalization cannot be changed.{" "}
                         <GrCircleInformation data-tip="Names cannot have spaces (e.g., r/bookclub not r/book club), must be between 3-21 characters, and underscores (_) are the only special characters allowed. Avoid using solely trademarked names (e.g., r/FansOfAcme not r/Acme)." />
                     </p>

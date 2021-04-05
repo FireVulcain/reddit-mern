@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
-import Pusher from "pusher-js";
 import axios from "./axios";
 
 import { Navbar } from "./components/Nav/Navbar";
@@ -12,7 +11,8 @@ import { Login } from "./components/Auth/Login";
 import { AuthProvider } from "./contexts/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { ForgotPassword } from "./components/Auth/ForgotPassword";
-import { CreateCommunity } from "./components/Community/CreateCommunity";
+import { CreateCommunity } from "./components/Community/CreateCommunity/CreateCommunity";
+import { Community } from "./components/Community/Community";
 
 function App() {
     const [posts, setPosts] = useState([]);
@@ -22,22 +22,6 @@ function App() {
             setPosts(res.data);
         });
     }, []);
-
-    useEffect(() => {
-        const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
-            cluster: "eu",
-        });
-
-        const channel = pusher.subscribe("posts");
-        channel.bind("inserted", function (newPost) {
-            setPosts([...posts, newPost]);
-        });
-
-        return () => {
-            channel.unbind_all();
-            channel.unsubscribe();
-        };
-    }, [posts]);
 
     return (
         <Router>
@@ -57,10 +41,13 @@ function App() {
                         <Route exact path="/forgot-password">
                             <ForgotPassword />
                         </Route>
+                        <Route exact path="/r/:communityName">
+                            <Community />
+                        </Route>
                         <PrivateRoute exact path="/community/create">
                             <CreateCommunity />
                         </PrivateRoute>
-                        <PrivateRoute exact path={["/submit", "/submit/:type"]}>
+                        <PrivateRoute exact path={["/submit", "/submit/:type", "/r/:communityName/submit", "/r/:communityName/submit/:type"]}>
                             <Submit />
                         </PrivateRoute>
                     </Switch>

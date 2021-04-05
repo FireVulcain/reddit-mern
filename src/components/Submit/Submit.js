@@ -64,6 +64,10 @@ export const Submit = () => {
                 });
                 return setNotFollowedCommunities(notFollowed);
             });
+        } else {
+            axios.get("/communities/all").then((res) => {
+                return setNotFollowedCommunities(res.data);
+            });
         }
     }, [followedCommunities]);
 
@@ -77,7 +81,7 @@ export const Submit = () => {
             content: selected === "post" ? text : selected === "link" ? formatURL(url) : "",
             type: selected,
             communityId: selectedCommunity.communityId,
-            communityName: selectedCommunity.name,
+            communityName: selectedCommunity.communityName,
             userName: currentUser.userName,
             userId: currentUser.userId,
             nbComments: 0,

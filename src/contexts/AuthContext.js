@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { auth } from "../firebase";
+import Pusher from "pusher-js";
 
 import axios from "./../axios";
 
@@ -13,8 +14,20 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
+            cluster: "eu",
+        });
+
+        const channel = pusher.subscribe("users");
+
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
+                channel.bind("inserted", () => {
+                    axios.get("/user/userId", { params: { userId: user.uid } }).then((res) => {
+                        setCurrentUser(...res.data);
+                        setLoading(false);
+                    });
+                });
                 axios.get("/user/userId", { params: { userId: user.uid } }).then((res) => {
                     setCurrentUser(...res.data);
                     setLoading(false);
@@ -26,6 +39,8 @@ export function AuthProvider({ children }) {
         });
 
         return () => {
+            channel.unbind_all();
+            channel.unsubscribe();
             unsubscribe();
         };
     }, []);

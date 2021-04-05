@@ -30,16 +30,16 @@ export const CommunitiesDropdown = ({ currentUser }) => {
         <div className="navbar-nav" ref={communitiesDropdownRef} onClick={() => setOpenCommunitiesDropdown(!openCommunitiesDropdown)}>
             <NavItem icon={<Caret />} open={openCommunitiesDropdown}>
                 <DropdownMenu position="center">
-                    <div className="nav-dropdown-title">My communities</div>
+                    {communities.length > 0 && <div className="nav-dropdown-title">My communities</div>}
                     {communities.map((community) => {
                         return (
                             <DropdownItem
                                 key={community.communityId}
-                                path={`/r/${community.name}`}
+                                path={`/r/${community.communityName}`}
                                 leftImage={community.avatar}
                                 setOpen={setOpenCommunitiesDropdown}
                             >
-                                r/{community.name}
+                                r/{community.communityName}
                             </DropdownItem>
                         );
                     })}
