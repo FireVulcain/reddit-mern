@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.scss";
-import axios from "./axios";
 
+/* Provider */
+import { AuthProvider } from "./contexts/AuthContext";
+
+/* Components */
 import { Navbar } from "./components/Nav/Navbar";
-import { Feed } from "./components/Feed/Feed";
 import { Submit } from "./components/Submit/Submit";
 import { Signup } from "./components/Auth/Signup";
 import { Login } from "./components/Auth/Login";
-import { AuthProvider } from "./contexts/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { ForgotPassword } from "./components/Auth/ForgotPassword";
 import { CreateCommunity } from "./components/Community/CreateCommunity/CreateCommunity";
 import { Community } from "./components/Community/Community";
+import { Home } from "./components/Home";
+
+/* Assets */
+import "./App.scss";
 
 function App() {
-    const [posts, setPosts] = useState([]);
-
-    useEffect(() => {
-        axios.get("/posts/all").then((res) => {
-            setPosts(res.data);
-        });
-    }, []);
-
     return (
         <Router>
             <AuthProvider>
@@ -30,7 +26,7 @@ function App() {
                     <Navbar />
                     <Switch>
                         <Route exact path="/">
-                            <Feed posts={posts} />
+                            <Home />
                         </Route>
                         <Route exact path="/login">
                             <Login />
