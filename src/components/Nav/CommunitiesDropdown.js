@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import useOutsideClick from "./DropDown/useOutsideClick";
 import axios from "./../../axios";
+import Pusher from "pusher-js";
 
 /* Components */
 import { NavItem } from "./DropDown/NavItem";
@@ -21,9 +22,31 @@ export const CommunitiesDropdown = ({ currentUser }) => {
     });
 
     useEffect(() => {
+        const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
+            cluster: "eu",
+        });
+
+        const channel = pusher.subscribe("follow");
+
+        channel.bind("inserted", () => {
+            axios.get("/communities/following", { params: { userId: currentUser.userId } }).then((res) => {
+                return setCommunities(res.data);
+            });
+        });
+        channel.bind("deleted", () => {
+            axios.get("/communities/following", { params: { userId: currentUser.userId } }).then((res) => {
+                return setCommunities(res.data);
+            });
+        });
+
         axios.get("/communities/following", { params: { userId: currentUser.userId } }).then((res) => {
             return setCommunities(res.data);
         });
+
+        return () => {
+            channel.unbind_all();
+            channel.unsubscribe();
+        };
     }, [currentUser]);
 
     return (

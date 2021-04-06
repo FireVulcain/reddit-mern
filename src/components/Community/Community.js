@@ -15,6 +15,7 @@ export const Community = () => {
     const [communityData, setCommunityData] = useState({});
     const [userFollowList, setUserFollowList] = useState();
     const [isFollowing, setIsFollowing] = useState(false);
+    const [followingData, setFollowingData] = useState(false);
     const [joinedText, setJoinedText] = useState("Joined");
     const [posts, setPosts] = useState([]);
 
@@ -39,7 +40,10 @@ export const Community = () => {
     useEffect(() => {
         if (communityData && userFollowList) {
             let isFollowing = userFollowList.filter((follow) => follow.communityId === communityData.communityId);
-            if (isFollowing.length > 0) return setIsFollowing(true);
+            if (isFollowing.length > 0) {
+                setFollowingData(...isFollowing);
+                return setIsFollowing(true);
+            }
         }
     }, [userFollowList]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -50,6 +54,25 @@ export const Community = () => {
             });
         }
     }, [communityData]);
+
+    const handleUnfollow = (followId) => {
+        axios.delete("/follow/remove", { params: { followId } }).then(() => {
+            setIsFollowing(false);
+            setFollowingData({});
+            setUserFollowList(userFollowList.filter((list) => list._id !== followId));
+        });
+    };
+    const handleFollow = () => {
+        const data = {
+            communityId: communityData.communityId,
+            userId: currentUser.userId,
+            communityName: communityData.communityName,
+        };
+        axios.post("/follow/new", data).then((res) => {
+            setFollowingData(res.data);
+            setUserFollowList((prevState) => [...prevState, res.data]);
+        });
+    };
 
     return (
         <div className="spacing-top-header single-community">
@@ -67,11 +90,14 @@ export const Community = () => {
                                 onMouseEnter={() => setJoinedText("Leave")}
                                 onMouseLeave={() => setJoinedText("Joined")}
                                 className="single-community-joined-button"
+                                onClick={() => handleUnfollow(followingData._id)}
                             >
                                 {joinedText}
                             </button>
                         ) : (
-                            <button className="single-community-join-button">Join</button>
+                            <button onClick={() => handleFollow()} className="single-community-join-button">
+                                Join
+                            </button>
                         )
                     ) : null}
                 </div>
