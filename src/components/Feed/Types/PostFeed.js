@@ -4,14 +4,12 @@ import { Header } from "./commonContent/Header";
 import { Votes } from "./commonContent/Votes";
 import { Footer } from "./commonContent/Footer";
 
-export const PostFeed = ({ post }) => {
+export const PostFeed = ({ post, votes }) => {
     return (
         <div className="feed-post" data-id={post._id}>
-            <Votes upvotes={post.upvotes} downvotes={post.downvotes} />
-
+            <Votes votes={votes} postId={post._id} upvotes={post.upvotes} downvotes={post.downvotes} />
             <div className="feed-post-content">
                 <Header communityName={post.communityName} userName={post.userName} createdAt={post.createdAt} title={post.title} />
-
                 <div className="feed-post-content-text">
                     {parse(post.content, {
                         replace: (domNode) => {

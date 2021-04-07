@@ -10,6 +10,7 @@
     background: rgba(26, 26, 27, 0.8) none repeat scroll 0% 0%;
     border: thin solid var(--newCommunityTheme-actionIcon);
     border-radius: 4px;
+    cursor: pointer;
 }
 
 /**** Sidebar upvotes / downvotes ****/
@@ -26,6 +27,13 @@
         pointer-events: none;
         word-break: normal;
         color: var(--newCommunityTheme-bodyText);
+
+        & span {
+            display: block;
+            width: 10px;
+            border: 1px solid #fff;
+            margin: 5px auto;
+        }
     }
 
     button {
@@ -36,6 +44,13 @@
         svg {
             width: 24px;
             height: 24px;
+        }
+
+        &.feed-post-upvotes.feed-post-vote-active svg {
+            fill: #cc3700;
+        }
+        &.feed-post-downvotes.feed-post-vote-active svg {
+            fill: #5a75cc;
         }
 
         &.feed-post-upvotes:hover svg {

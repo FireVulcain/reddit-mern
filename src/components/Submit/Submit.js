@@ -109,16 +109,32 @@ export const Submit = () => {
 
             Promise.all(promises).then(() => {
                 data.media = url;
-                axios.post("/posts/new", data).then((res) => {
+                return axios.post("/posts/new", data).then((res) => {
                     if (res.status >= 200 && res.status < 300) {
-                        return setIsLoading(false);
+                        let voteData = {
+                            voteId: uuidv4(),
+                            postId: res.data._id,
+                            userId: currentUser.userId,
+                            vote: 1,
+                        };
+                        return axios.post("/vote/new", voteData).then(() => {
+                            return setIsLoading(false);
+                        });
                     }
                 });
             });
         } else {
-            axios.post("/posts/new", data).then((res) => {
+            return axios.post("/posts/new", data).then((res) => {
                 if (res.status >= 200 && res.status < 300) {
-                    return setIsLoading(false);
+                    let voteData = {
+                        voteId: uuidv4(),
+                        postId: res.data._id,
+                        userId: currentUser.userId,
+                        vote: 1,
+                    };
+                    return axios.post("/vote/new", voteData).then(() => {
+                        return setIsLoading(false);
+                    });
                 }
             });
         }
