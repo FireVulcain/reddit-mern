@@ -85,7 +85,7 @@ export const Submit = () => {
             userName: currentUser.userName,
             userId: currentUser.userId,
             nbComments: 0,
-            upvotes: 1,
+            upvotes: 0,
             downvotes: 0,
             media: [],
         };

@@ -28,6 +28,10 @@ export const UserDropdown = ({ currentUser }) => {
         } catch {}
     };
 
+    const kFormatter = (num) => {
+        return Math.abs(num) > 999 ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k" : Math.sign(num) * Math.abs(num);
+    };
+
     useOutsideClick(userDropdownRef, () => {
         if (openUserDropdown) return setOpenUserDropdown(!openUserDropdown);
     });
@@ -43,7 +47,7 @@ export const UserDropdown = ({ currentUser }) => {
                     <p>{currentUser.userName}</p>
                     <div className="nav-profile-data-karma">
                         <GiPointyHat />
-                        <p>{currentUser.karma} karma</p>
+                        <p>{kFormatter(currentUser.karma)} karma</p>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 
-export const Votes = ({ votes, postId, upvotes, downvotes }) => {
+export const Votes = ({ votes, postId, postUserId, upvotes, downvotes }) => {
     const { currentUser } = useAuth();
     const [isUpvote, setIsUpvote] = useState(0);
     const [currentVote, setCurrentVote] = useState([]);
@@ -34,12 +34,14 @@ export const Votes = ({ votes, postId, upvotes, downvotes }) => {
             setUpvote((prevState) => prevState - 1);
             axios.put("/vote/update", { ...data, vote: 0 }).then(() => {
                 axios.put("/posts/vote/update", { postId, votes: { upvotes: -1 } });
+                axios.put("/user/karma/update", { postUserId, karma: { karma: -1 } });
                 setCurrentVote([data]);
             });
         } else if (isUpvote === 0) {
             setUpvote((prevState) => prevState + 1);
             axios.put("/vote/update", { ...data, vote: 1 }).then(() => {
                 axios.put("/posts/vote/update", { postId, votes: { upvotes: +1 } });
+                axios.put("/user/karma/update", { postUserId, karma: { karma: +1 } });
                 setCurrentVote([data]);
             });
         } else {
@@ -47,6 +49,7 @@ export const Votes = ({ votes, postId, upvotes, downvotes }) => {
             setDownvote((prevState) => prevState + 1);
             axios.put("/vote/update", { ...data, vote: 1 }).then(() => {
                 axios.put("/posts/vote/update", { postId, votes: { upvotes: +1, downvotes: +1 } });
+                axios.put("/user/karma/update", { postUserId, karma: { karma: +2 } });
                 setCurrentVote([data]);
             });
         }
@@ -64,12 +67,14 @@ export const Votes = ({ votes, postId, upvotes, downvotes }) => {
             setDownvote((prevState) => prevState + 1);
             axios.put("/vote/update", { ...data, vote: 0 }).then(() => {
                 axios.put("/posts/vote/update", { postId, votes: { downvotes: +1 } });
+                axios.put("/user/karma/update", { postUserId, karma: { karma: +1 } });
                 setCurrentVote([data]);
             });
         } else if (isUpvote === 0) {
             setDownvote((prevState) => prevState - 1);
             axios.put("/vote/update", { ...data, vote: -1 }).then(() => {
                 axios.put("/posts/vote/update", { postId, votes: { downvotes: -1 } });
+                axios.put("/user/karma/update", { postUserId, karma: { karma: -1 } });
                 setCurrentVote([data]);
             });
         } else {
@@ -77,6 +82,7 @@ export const Votes = ({ votes, postId, upvotes, downvotes }) => {
             setDownvote((prevState) => prevState - 1);
             axios.put("/vote/update", { ...data, vote: -1 }).then(() => {
                 axios.put("/posts/vote/update", { postId, votes: { upvotes: -1, downvotes: -1 } });
+                axios.put("/user/karma/update", { postUserId, karma: { karma: -2 } });
                 setCurrentVote([data]);
             });
         }

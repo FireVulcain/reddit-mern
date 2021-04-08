@@ -21,7 +21,7 @@ export const LinkFeed = ({ post, votes }) => {
 
     return (
         <div className="feed-post" data-id={post._id}>
-            <Votes votes={votes} postId={post._id} upvotes={post.upvotes} downvotes={post.downvotes} />
+            <Votes votes={votes} postId={post._id} postUserId={post.userId} upvotes={post.upvotes} downvotes={post.downvotes} />
             <div className="feed-post-content">
                 <Header communityName={post.communityName} userName={post.userName} createdAt={post.createdAt} title={post.title} />
                 <div className="feed-post-content-link">
