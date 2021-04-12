@@ -12,17 +12,19 @@ import { useAuth } from "./../../contexts/AuthContext";
 import "./types/types.scss";
 import "./Feed.scss";
 
-export const Feed = ({ posts }) => {
+export const Feed = ({ posts, isSingle = false }) => {
     const { currentUser } = useAuth();
     const [votesUser, setVotesUser] = useState([]);
 
     useEffect(() => {
-        axios.get("/vote/userId", { params: { userId: currentUser.userId } }).then((res) => setVotesUser(res.data));
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+        if (currentUser) {
+            axios.get("/vote/userId", { params: { userId: currentUser.userId } }).then((res) => setVotesUser(res.data));
+        }
+    }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="feed-container spacing-top-header">
-            {currentUser && <FeedSubmit userName={currentUser.userName} userAvatar={currentUser.userAvatar} />}
+            {currentUser && !isSingle && <FeedSubmit userName={currentUser.userName} userAvatar={currentUser.userAvatar} />}
             {posts.map((post) => {
                 if (post.type === "post") {
                     return <PostFeed key={post._id} post={post} votes={votesUser} />;

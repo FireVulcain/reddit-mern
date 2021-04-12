@@ -20,7 +20,7 @@ export const Votes = ({ votes, postId, postUserId, upvotes, downvotes }) => {
             setIsUpvote(votesFilter[0].vote);
             setCurrentVote(votesFilter);
         }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [postId, votes]);
 
     const handleUpvote = () => {
         const data = {

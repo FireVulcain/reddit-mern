@@ -14,6 +14,7 @@ import { ForgotPassword } from "./components/Auth/ForgotPassword";
 import { CreateCommunity } from "./components/Community/CreateCommunity/CreateCommunity";
 import { Community } from "./components/Community/Community";
 import { Home } from "./components/Home";
+import { SinglePost } from "./components/SinglePost/SinglePost";
 
 /* Assets */
 import "./App.scss";
@@ -43,6 +44,9 @@ function App() {
                         <PrivateRoute exact path="/community/create">
                             <CreateCommunity />
                         </PrivateRoute>
+                        <Route exact path={["/r/:communityName/comments/:postId/", "/r/:communityName/comments/:postId/:postTitle/"]}>
+                            <SinglePost />
+                        </Route>
                         <PrivateRoute exact path={["/submit", "/submit/:type", "/r/:communityName/submit", "/r/:communityName/submit/:type"]}>
                             <Submit />
                         </PrivateRoute>

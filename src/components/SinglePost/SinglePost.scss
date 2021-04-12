@@ -1,0 +1,217 @@
+.single-post {
+    max-width: 640px;
+    margin: 0 auto;
+    .feed-container {
+        padding-top: 0;
+
+        .feed-post {
+            border: none;
+            margin-bottom: 0;
+            border-bottom-left-radius: 0;
+            background: #1a1a1b none repeat scroll 0% 0%;
+        }
+    }
+    span.single-post-currentuser {
+        display: block;
+        background: #1a1a1b none repeat scroll 0% 0%;
+        padding: 5px 40px;
+        font-size: 12px;
+
+        a {
+            text-decoration: none;
+            color: #4193c6;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .single-post-comments-container {
+        border-top: 2px solid var(--newCommunityTheme-line);
+        background: #1a1a1b none repeat scroll 0% 0%;
+        padding-top: 20px;
+    }
+}
+.single-post-comment-list {
+    padding-bottom: 20px;
+    padding-left: 10px;
+
+    .single-post-comment-content {
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+        &::before {
+            content: "";
+            border-left: 2px solid var(--newCommunityTheme-line);
+            position: absolute;
+            top: 35px;
+            left: 11px;
+            width: 2px;
+            height: calc(100% - 35px);
+        }
+
+        > div {
+            width: 100%;
+            padding-right: 20px;
+        }
+    }
+
+    .single-post-comment-list {
+        position: relative;
+        margin-left: 11px;
+        margin-bottom: 0;
+        padding-left: 10px;
+        padding-bottom: 0;
+
+        &::before {
+            content: "";
+            border-left: 2px solid var(--newCommunityTheme-line);
+            position: absolute;
+            top: -35px;
+            left: 0;
+            width: 2px;
+            height: calc(100% + 30px);
+        }
+
+        .single-post-comment-content {
+            padding-top: 10px;
+        }
+    }
+
+    a {
+        color: var(--newCommunityTheme-bodyText);
+        text-decoration: none;
+        font-size: 12px;
+    }
+    time {
+        color: var(--newCommunityTheme-metaText);
+        font-size: 12px;
+        padding-left: 4px;
+    }
+    .single-post-comment-text {
+        font-size: 14px;
+        padding-top: 4px;
+    }
+
+    img {
+        width: 24px;
+        height: 24px;
+        border-radius: 9999px;
+        margin-right: 10px;
+        margin-top: 5px;
+        z-index: 2;
+    }
+    button {
+        display: flex;
+        align-items: center;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: var(--newCommunityTheme-metaText);
+        margin-top: 5px;
+        padding: 6px 4px;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: rgba(215, 218, 220, 0.1);
+        }
+
+        svg {
+            fill: var(--newCommunityTheme-metaText);
+            margin-right: 10px;
+        }
+    }
+}
+
+.single-post-comment-texteditor,
+.single-post-reply-container {
+    > button {
+        transform: translateY(-50%);
+        padding: 5px 10px;
+        z-index: 2;
+        border: none;
+        background-color: var(--newCommunityTheme-button);
+        color: var(--newCommunityTheme-body);
+        border-radius: 9999px;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: no-drop;
+        }
+    }
+}
+.single-post-comment-texteditor {
+    $paddingTopBottom: 20px;
+    $paddingLeftRight: 40px;
+
+    padding: $paddingTopBottom $paddingLeftRight;
+    background: #1a1a1b none repeat scroll 0% 0%;
+    position: relative;
+
+    * {
+        color: var(--newCommunityTheme-bodyText);
+    }
+    > button {
+        position: absolute;
+        top: calc(#{$paddingTopBottom} + 20px);
+        right: calc(#{$paddingLeftRight} + 20px);
+    }
+}
+
+.single-post-reply-container {
+    position: relative;
+
+    > button {
+        position: absolute;
+        top: 15px;
+        right: 40px;
+
+        &:hover {
+            background-color: var(--newCommunityTheme-button);
+        }
+    }
+    > .ck-editor {
+        padding-left: 20px;
+        border-left: 2px solid var(--newCommunityTheme-line);
+    }
+}
+
+.not-loggedin-comment {
+    padding: 10px 40px;
+    background: #1a1a1b none repeat scroll 0% 0%;
+
+    > div {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid var(--newCommunityTheme-line);
+        margin: 20px 0;
+    }
+
+    p {
+        color: var(--newCommunityTheme-metaText);
+    }
+
+    a {
+        display: inline-block;
+        min-width: 100px;
+        padding: 5px 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 9999px;
+
+        &:first-of-type {
+            border: 1px solid var(--newCommunityTheme-button);
+            margin-right: 20px;
+        }
+        &:last-of-type {
+            color: #242526;
+            background-color: var(--newCommunityTheme-button);
+        }
+    }
+}

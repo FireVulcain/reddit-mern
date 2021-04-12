@@ -52,7 +52,7 @@ export const MediaFeed = ({ post, votes }) => {
                         })
                     )}
                 </div>
-                <Footer communityName={post.communityName} idPost={post._id} nbComments={post.nbComments} />
+                <Footer communityName={post.communityName} idPost={post._id} nbComments={post.nbComments} postName={post.title} />
             </div>
         </div>
     );
