@@ -19,6 +19,7 @@ export const SinglePost = () => {
     const { currentUser } = useAuth();
 
     const [post, setPost] = useState([]);
+    const [memoComments, setMemoComments] = useState([]);
     const [nestedComments, setNestedComments] = useState([]);
     const [text, setText] = useState("");
     const [loading, setLoading] = useState(false);
@@ -33,7 +34,7 @@ export const SinglePost = () => {
         commentList.forEach((comment) => {
             if (comment.parentId !== "") {
                 const parent = commentMap[comment.parentId];
-                (parent.children = parent.children || []).push(comment);
+                (parent.children = []).push(comment);
             }
         });
 
@@ -47,12 +48,16 @@ export const SinglePost = () => {
         axios.get("/posts/single", { params: { postId } }).then((res) => {
             if (res.data.length > 0) {
                 axios.get("/comments/postId", { params: { postId } }).then((res) => {
-                    if (res.data.length > 0) return setNestedComments(nestComments(res.data));
+                    if (res.data.length > 0) return setMemoComments(res.data);
                 });
                 return setPost(res.data);
             } else return history.push("/");
         });
-    }, [postId]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if (memoComments.length > 0) return setNestedComments(nestComments(memoComments));
+    }, [memoComments]);
 
     const handleSubmit = () => {
         setLoading(true);
@@ -65,10 +70,10 @@ export const SinglePost = () => {
                 userName: currentUser.userName,
                 userAvatar: currentUser.userAvatar,
             },
-            children: [],
         };
         axios.post("/comments/new", data).then((res) => {
-            setNestedComments((prevState) => [res.data, ...prevState]);
+            setMemoComments((prevState) => [res.data, ...prevState]);
+            setText("");
             return setLoading(false);
         });
     };
@@ -122,10 +127,9 @@ export const SinglePost = () => {
                 </div>
             )}
             <div className="single-post-comments-container">
-                {nestedComments &&
-                    nestedComments.map((comment) => {
-                        return <Comment key={comment?._id} comment={comment} nestComments={nestComments} setNestedComments={setNestedComments} />;
-                    })}
+                {nestedComments.map((comment) => {
+                    return <Comment key={comment?._id} comment={comment} setMemoComments={setMemoComments} />;
+                })}
             </div>
         </div>
     );

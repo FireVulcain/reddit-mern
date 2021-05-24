@@ -10,7 +10,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import { FaReply } from "react-icons/fa";
 
-export const Comment = ({ comment, nestComments, setNestedComments }) => {
+export const Comment = ({ comment, setMemoComments }) => {
     const { postId } = useParams();
     const { currentUser } = useAuth();
 
@@ -18,12 +18,8 @@ export const Comment = ({ comment, nestComments, setNestedComments }) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const nestedComments = (comment.children || []).map((comment) => {
-        return <Comment key={comment?._id} comment={comment} setNestedComments={setNestedComments} nestComments={nestComments} />;
-    });
-
     const handleSubmit = (id) => {
-        // setLoading(true);
+        setLoading(true);
         let data = {
             parentId: id,
             postId,
@@ -33,17 +29,19 @@ export const Comment = ({ comment, nestComments, setNestedComments }) => {
                 userName: currentUser.userName,
                 userAvatar: currentUser.userAvatar,
             },
-            children: [],
         };
 
         axios.post("/comments/new", data).then((res) => {
-            axios.get("/comments/postId", { params: { postId } }).then((res) => {
-                if (res.data.length > 0) return setNestedComments(nestComments(res.data));
-            });
             setOpen(false);
+            setText("");
+            setMemoComments((prevState) => [res.data, ...prevState]);
             return setLoading(false);
         });
     };
+
+    const nestedComments = (comment.children || []).map((comment) => {
+        return <Comment key={comment?._id} comment={comment} setMemoComments={setMemoComments} />;
+    });
     return (
         <div className={`single-post-comment-list`}>
             <div className="single-post-comment-content">
@@ -69,15 +67,17 @@ export const Comment = ({ comment, nestComments, setNestedComments }) => {
                         </div>
                     </div>
                     <div>
-                        <button
-                            onClick={() => {
-                                setOpen(false);
-                                setOpen(!open);
-                            }}
-                        >
-                            <FaReply />
-                            Reply
-                        </button>
+                        {currentUser && (
+                            <button
+                                onClick={() => {
+                                    setOpen(false);
+                                    setOpen(!open);
+                                }}
+                            >
+                                <FaReply />
+                                Reply
+                            </button>
+                        )}
                         {open && (
                             <div className="single-post-reply-container">
                                 <button disabled={text === "" || loading} onClick={() => handleSubmit(comment._id)}>
